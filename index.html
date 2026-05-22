@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>HANGMAN · Word Guessing Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo" id="homeMenuBtn">
+                <i class="fas fa-fill-drip"></i>
+                <span>HANGMAN</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <button class="nav-link active" data-page="game">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Game</span>
+                </button>
+                <button class="nav-link" data-page="support">
+                    <i class="fas fa-heart"></i>
+                    <span>Support</span>
+                </button>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Game Page -->
+    <div id="gamePage" class="page active">
+        <div class="game-container">
+            <div class="game-header">
+                <div class="mode-indicator">
+                    <i class="fas fa-category"></i>
+                    <span id="currentMode">Category Mode</span>
+                </div>
+                <div class="turn-indicator">
+                    <i class="fas fa-user"></i>
+                    <span id="turnText">Player 1's Turn</span>
+                </div>
+            </div>
+
+            <!-- Hangman Drawing -->
+            <!-- Hangman Drawing -->
+<div class="hangman-container" id="hangmanContainer">
+    <svg class="hangman-svg" viewBox="0 0 200 250">
+        <!-- Vertical Pole (Part 1) -->
+        <line x1="50" y1="230" x2="50" y2="20" stroke="#000" stroke-width="3" id="verticalPole" style="opacity:0"/>
+        <!-- Horizontal Pole (Part 2) -->
+        <line x1="50" y1="20" x2="130" y2="20" stroke="#000" stroke-width="3" id="horizontalPole" style="opacity:0"/>
+        <!-- Rope (Part 3) -->
+        <line x1="130" y1="20" x2="130" y2="50" stroke="#000" stroke-width="2" id="rope" style="opacity:0"/>
+        <!-- Head (Part 4) -->
+        <circle cx="130" cy="65" r="15" fill="none" stroke="#000" stroke-width="2" id="head" style="opacity:0"/>
+        <!-- Body (Part 5) -->
+        <line x1="130" y1="80" x2="130" y2="140" stroke="#000" stroke-width="2" id="body" style="opacity:0"/>
+        <!-- Left Arm (Part 6) -->
+        <line x1="130" y1="95" x2="105" y2="115" stroke="#000" stroke-width="2" id="leftArm" style="opacity:0"/>
+        <!-- Right Arm (Part 7) -->
+        <line x1="130" y1="95" x2="155" y2="115" stroke="#000" stroke-width="2" id="rightArm" style="opacity:0"/>
+        <!-- Left Leg (Part 8) -->
+        <line x1="130" y1="140" x2="105" y2="170" stroke="#000" stroke-width="2" id="leftLeg" style="opacity:0"/>
+        <!-- Right Leg (Part 9) -->
+        <line x1="130" y1="140" x2="155" y2="170" stroke="#000" stroke-width="2" id="rightLeg" style="opacity:0"/>
+        
+        <!-- Base (always visible) -->
+        <line x1="20" y1="230" x2="180" y2="230" stroke="#000" stroke-width="3"/>
+    </svg>
+</div>
+
+            <!-- Hint Section -->
+            <div class="hint-section">
+                <i class="fas fa-lightbulb"></i>
+                <span id="hintText">Click New Game to start</span>
+            </div>
+
+            <!-- Word Display -->
+            <div class="word-display" id="wordDisplay"></div>
+
+            <!-- Used Letters -->
+            <div class="used-letters">
+                <span>Used Letters:</span>
+                <span id="usedLettersList"></span>
+            </div>
+
+            <!-- Remaining Guesses -->
+            <div class="remaining-guesses">
+                <i class="fas fa-heartbeat"></i>
+                <span id="remainingGuesses">Remaining Guesses: 6</span>
+            </div>
+
+            <!-- Virtual Keyboard -->
+            <div class="keyboard" id="keyboard"></div>
+
+            <!-- Score Board -->
+            <div class="score-board">
+                <div class="player-score">
+                    <i class="fas fa-user"></i>
+                    <span id="player1Name">Player 1</span>
+                    <span class="score-value" id="scoreP1">0</span>
+                </div>
+                <div class="player-score">
+                    <i class="fas fa-user"></i>
+                    <span id="player2Name">Player 2</span>
+                    <span class="score-value" id="scoreP2">0</span>
+                </div>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="game-controls">
+                <button id="newGameBtn" class="btn-control btn-primary"><i class="fas fa-plus"></i> New Game</button>
+                <button id="resetRoundBtn" class="btn-control btn-reset"><i class="fas fa-undo-alt"></i> Reset Round</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Page -->
+    <div id="supportPage" class="page">
+        <div class="container support-container">
+            <div class="support-header">
+                <i class="fas fa-heart"></i>
+                <h1>Support</h1>
+                <p>follow & share the fun</p>
+            </div>
+            <div class="social-links">
+                <a href="https://instagram.com/_arsu.x" target="_blank" class="social-card">
+                    <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="social-info"><h3>Instagram</h3><span>@_arsu.x</span></div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="https://tiktok.com/@my.ville" target="_blank" class="social-card">
+                    <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+                    <div class="social-info"><h3>TikTok</h3><span>@my.ville</span></div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="https://github.com/Arfadh-Subhan" target="_blank" class="social-card">
+                    <div class="social-icon"><i class="fab fa-github"></i></div>
+                    <div class="social-info"><h3>GitHub</h3><span>Arfadh-Subhan</span></div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="support-footer">
+                <p>❤️ Love this game? Share it with friends!</p>
+                <div class="share-buttons">
+                    <button class="share-btn" id="shareTwitter"><i class="fab fa-twitter"></i></button>
+                    <button class="share-btn" id="shareWhatsapp"><i class="fab fa-whatsapp"></i></button>
+                    <button class="share-btn" id="shareTelegram"><i class="fab fa-telegram"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Setup Modal -->
+    <div id="setupModal" class="modal-overlay">
+        <div class="modal-card setup-card">
+            <div class="modal-header">
+                <h3><i class="fas fa-cog"></i> Game Setup</h3>
+            </div>
+            <div class="modal-body">
+                <div class="setup-players">
+                    <div class="setup-player">
+                        <i class="fas fa-user"></i>
+                        <label>Player 1 Name</label>
+                        <div class="player-name-wrapper" data-player="1">
+                            <span id="displayNameP1">Player 1</span>
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                    </div>
+                    <div class="setup-player">
+                        <i class="fas fa-user"></i>
+                        <label>Player 2 Name</label>
+                        <div class="player-name-wrapper" data-player="2">
+                            <span id="displayNameP2">Player 2</span>
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setup-option">
+                    <label><i class="fas fa-gamepad"></i> Game Mode</label>
+                    <div class="mode-buttons">
+                        <button class="mode-btn" data-mode="category">📚 Category Mode</button>
+                        <button class="mode-btn" data-mode="custom">✏️ Custom Word Mode</button>
+                    </div>
+                </div>
+
+                <div class="setup-option category-option">
+                    <label><i class="fas fa-folder-open"></i> Choose Category</label>
+                    <div class="category-buttons">
+                        <button class="category-btn" data-cat="sports">⚽ Sports</button>
+                        <button class="category-btn" data-cat="objects">📦 Objects</button>
+                        <button class="category-btn" data-cat="movies">🎬 Movies</button>
+                        <button class="category-btn" data-cat="animals">🐾 Animals</button>
+                        <button class="category-btn" data-cat="food">🍕 Food</button>
+                    </div>
+                </div>
+
+                <div class="setup-option custom-option" style="display:none;">
+                    <label><i class="fas fa-keyboard"></i> Create Your Secret Word</label>
+                    <div class="custom-word-input">
+                        <input type="text" id="customWord" placeholder="Enter secret word" maxlength="20">
+                        <input type="text" id="customHint" placeholder="Enter a hint (optional)" maxlength="50">
+                        <p class="info-text"><i class="fas fa-info-circle"></i> The other player will try to guess this word. You get a point if they fail!</p>
+                    </div>
+                </div>
+
+                <button id="startGameBtn" class="btn-start-game"><i class="fas fa-play"></i> Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Name Editor Modal -->
+    <div id="nameEditorModal" class="modal-overlay">
+        <div class="modal-card name-editor-card">
+            <div class="modal-header">
+                <h3><i class="fas fa-pencil-alt"></i> Edit Player Name</h3>
+                <button class="modal-close" id="closeNameEditorBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="name-editor-input">
+                    <label id="nameEditorLabel">Player Name</label>
+                    <input type="text" id="nameEditorInput" maxlength="20" placeholder="Enter name">
+                </div>
+                <div class="name-editor-actions">
+                    <button id="saveNameBtn" class="btn-save"><i class="fas fa-check"></i> Save</button>
+                    <button id="cancelNameBtn" class="btn-cancel"><i class="fas fa-times"></i> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal-overlay">
+        <div class="result-card">
+            <div class="result-header" id="resultHeader">
+                <i class="fas fa-trophy"></i>
+                <h2 id="resultTitle">GAME OVER!</h2>
+            </div>
+            <div class="result-body" id="resultBody"></div>
+            <div class="result-buttons">
+                <button id="nextRoundBtn" class="btn-winner">Next Round</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
