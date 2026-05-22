@@ -158,7 +158,7 @@ body {
 }
 
 .hangman-svg line, .hangman-svg circle {
-    transition: opacity 0.3s ease, stroke 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 /* Hint Section */
@@ -176,6 +176,11 @@ body {
 
 .hint-section i {
     color: #FFE87C;
+}
+
+.hint-section span {
+    font-size: 0.9rem;
+    color: #555;
 }
 
 /* Word Display */
@@ -206,9 +211,9 @@ body {
 }
 
 @keyframes winGlow {
-    0% { background: #FFFFFF; border-color: #000; }
-    50% { background: #90EE90; border-color: #00AA00; }
-    100% { background: #FFFFFF; border-color: #000; }
+    0% { background: #FFFFFF; }
+    50% { background: #90EE90; }
+    100% { background: #FFFFFF; }
 }
 
 /* Used Letters */
@@ -265,9 +270,8 @@ body {
 }
 
 .key-btn:disabled {
-    opacity: 0.4;
+    opacity: 0.6;
     cursor: not-allowed;
-    background: #F5F0E0;
 }
 
 /* Score Board */
@@ -355,6 +359,8 @@ body {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.2s, opacity 0.2s;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-overlay.active {
@@ -369,6 +375,16 @@ body {
     border-radius: 32px;
     overflow: hidden;
     animation: modalPop 0.25s ease-out;
+    margin: 20px auto;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Hide scrollbar but keep functionality */
+.modal-card::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
 }
 
 @keyframes modalPop {
@@ -382,12 +398,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .modal-header h3 {
     color: #FFE87C;
     font-size: 1.2rem;
     font-weight: 600;
+}
+
+.modal-header h3 i {
+    margin-right: 0.5rem;
 }
 
 .modal-close {
@@ -400,6 +423,8 @@ body {
 
 .modal-body {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Setup Modal */
@@ -456,6 +481,11 @@ body {
     font-size: 0.85rem;
 }
 
+.setup-option label i {
+    margin-right: 0.4rem;
+    color: #FFE87C;
+}
+
 .mode-buttons, .category-buttons {
     display: flex;
     gap: 0.6rem;
@@ -490,7 +520,7 @@ body {
     border: 1px solid #E8E0C8;
     border-radius: 60px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
+    font-size: 16px;
 }
 
 .info-text {
@@ -507,8 +537,12 @@ body {
     border: none;
     border-radius: 60px;
     font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
     margin-top: 0.5rem;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
 }
 
 /* Name Editor */
@@ -520,13 +554,25 @@ body {
     margin-bottom: 1.5rem;
 }
 
+.name-editor-input label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
 .name-editor-input input {
     width: 100%;
     padding: 0.8rem;
     border: 2px solid #E8E0C8;
     border-radius: 60px;
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: 16px;
+}
+
+.name-editor-input input:focus {
+    border-color: #FFE87C;
+    outline: none;
 }
 
 .name-editor-actions {
@@ -540,16 +586,29 @@ body {
     border-radius: 60px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .btn-save {
     background: #000000;
     color: #FFE87C;
+    border: none;
+}
+
+.btn-save:hover {
+    background: #1A1A1A;
+    transform: translateY(-2px);
 }
 
 .btn-cancel {
     background: #F5F0E0;
     color: #000000;
+    border: none;
+}
+
+.btn-cancel:hover {
+    background: #EBE4D0;
+    transform: translateY(-2px);
 }
 
 /* Result Modal */
@@ -573,6 +632,10 @@ body {
     margin-bottom: 0.5rem;
 }
 
+.result-header h2 {
+    font-size: 1.3rem;
+}
+
 .result-body {
     padding: 1.5rem;
 }
@@ -590,6 +653,12 @@ body {
     border-radius: 60px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-winner:hover {
+    background: #1A1A1A;
+    transform: translateY(-2px);
 }
 
 /* Support Page */
@@ -687,24 +756,68 @@ body {
     background: #1A1A1A;
 }
 
+/* Toast Notification */
+#gameToast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #000000;
+    padding: 0.8rem 1.5rem;
+    border-radius: 60px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 1100;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    opacity: 1;
+    pointer-events: none;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
     .keyboard {
         grid-template-columns: repeat(7, 1fr);
         gap: 0.3rem;
     }
+    
     .key-btn {
         padding: 0.5rem 0;
         font-size: 0.9rem;
     }
+    
     .letter-slot {
         width: 35px;
         height: 45px;
         font-size: 1.4rem;
     }
+    
+    .game-container {
+        padding: 1rem;
+    }
+    
+    .modal-card {
+        max-height: 85vh;
+        margin: 10px auto;
+    }
+    
+    .modal-body {
+        padding: 1.2rem;
+    }
+    
     .setup-players {
         flex-direction: column;
         gap: 0.8rem;
+    }
+    
+    .mode-buttons, .category-buttons {
+        gap: 0.4rem;
+    }
+    
+    .mode-btn, .category-btn {
+        padding: 0.5rem;
+        font-size: 0.75rem;
     }
 }
 
@@ -722,9 +835,11 @@ body {
         transition: left 0.3s ease;
         z-index: 99;
     }
+    
     .nav-menu.active {
         left: 0;
     }
+    
     .nav-toggle {
         display: block;
     }
