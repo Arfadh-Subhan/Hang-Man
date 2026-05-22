@@ -13,7 +13,7 @@ const WORDS_DB = {
         { word: "WRESTLING", hint: "Mat, pin, WWE" },
         { word: "SWIMMING", hint: "Pool, laps, freestyle" },
         { word: "ATHLETICS", hint: "Run, jump, track" },
-        {word: "VOLLEYBALL", hint: "Net, spike, serve" },
+        { word: "VOLLEYBALL", hint: "Net, spike, serve" },
         { word: "TABLE TENNIS", hint: "Ping pong, paddle" },
         { word: "BADMINTON", hint: "Shuttlecock, smash" },
         { word: "KABADDI", hint: "Raid, tackle, India" },
@@ -455,14 +455,6 @@ function showToast(message, color) {
     if (!toast) {
         toast = document.createElement('div');
         toast.id = 'gameToast';
-        toast.style.cssText = `
-            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: #000000; padding: 0.8rem 1.5rem;
-            border-radius: 60px; font-size: 0.9rem; font-weight: 600;
-            z-index: 1100; transition: transform 0.3s ease, opacity 0.3s ease;
-            white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            opacity: 1;
-        `;
         document.body.appendChild(toast);
     }
     
@@ -618,6 +610,12 @@ function disableKeyboard(disabled) {
 }
 
 function showSetupModal() {
+    const modal = document.getElementById('setupModal');
+    const modalCard = modal.querySelector('.modal-card');
+    if (modalCard) {
+        modalCard.scrollTop = 0;
+    }
+    
     if (gameState.gameMode === 'custom') {
         document.querySelector('.custom-option').style.display = 'block';
         document.querySelector('.category-option').style.display = 'none';
@@ -625,11 +623,13 @@ function showSetupModal() {
         document.querySelector('.custom-option').style.display = 'none';
         document.querySelector('.category-option').style.display = 'block';
     }
-    document.getElementById('setupModal').classList.add('active');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
-function closeSetupModal() { 
-    document.getElementById('setupModal').classList.remove('active'); 
+function closeSetupModal() {
+    document.getElementById('setupModal').classList.remove('active');
+    document.body.style.overflow = '';
 }
 
 function setupEventListeners() {
