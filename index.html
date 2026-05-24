@@ -23,6 +23,10 @@
                     <i class="fas fa-gamepad"></i>
                     <span>Game</span>
                 </button>
+                <button class="nav-link" data-page="howto">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How to Play</span>
+                </button>
                 <button class="nav-link" data-page="support">
                     <i class="fas fa-heart"></i>
                     <span>Support</span>
@@ -118,6 +122,56 @@
             <div class="game-controls">
                 <button id="newGameBtn" class="btn-control btn-primary"><i class="fas fa-plus"></i> New Game</button>
                 <button id="resetRoundBtn" class="btn-control btn-reset"><i class="fas fa-undo-alt"></i> Reset Round</button>
+                <button id="nextRoundSimpleBtn" class="btn-control btn-next" style="display:none;"><i class="fas fa-forward"></i> Next Round</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Play Page -->
+    <div id="howtoPage" class="page">
+        <div class="container howto-container">
+            <div class="howto-header">
+                <i class="fas fa-question-circle"></i>
+                <h1>How to Play</h1>
+                <p>save the hangman from complete drawing</p>
+            </div>
+            <div class="howto-grid">
+                <div class="howto-card">
+                    <div class="howto-number">01</div>
+                    <i class="fas fa-users"></i>
+                    <h3>Gather Players</h3>
+                    <p>2 players take turns guessing letters. One creates the word, the other guesses.</p>
+                </div>
+                <div class="howto-card">
+                    <div class="howto-number">02</div>
+                    <i class="fas fa-cog"></i>
+                    <h3>Setup the Game</h3>
+                    <p>Enter player names, choose Category Mode (computer picks word) or Custom Word Mode (player creates word).</p>
+                </div>
+                <div class="howto-card">
+                    <div class="howto-number">03</div>
+                    <i class="fas fa-keyboard"></i>
+                    <h3>Guess Letters</h3>
+                    <p>Click letters on the virtual keyboard. Correct letters fill in the blanks. Wrong letters draw the hangman!</p>
+                </div>
+                <div class="howto-card">
+                    <div class="howto-number">04</div>
+                    <i class="fas fa-draw-polygon"></i>
+                    <h3>Watch the Hangman</h3>
+                    <p>Each wrong guess adds a part — pole → rope → head → body → arms → legs. 9 wrong guesses = game over!</p>
+                </div>
+                <div class="howto-card">
+                    <div class="howto-number">05</div>
+                    <i class="fas fa-trophy"></i>
+                    <h3>Win the Round</h3>
+                    <p>Guess all letters before hangman completes. The guesser gets +1 point!</p>
+                </div>
+                <div class="howto-card">
+                    <div class="howto-number">06</div>
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Switch Turns</h3>
+                    <p>After each round, players switch roles. Click "Next Round" to continue!</p>
+                </div>
             </div>
         </div>
     </div>
