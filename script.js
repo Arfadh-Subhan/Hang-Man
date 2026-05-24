@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
-    const pages = { game: document.getElementById('gamePage'), support: document.getElementById('supportPage') };
+    const pages = { game: document.getElementById('gamePage'), howto: document.getElementById('howtoPage'), support: document.getElementById('supportPage') };
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
 
@@ -502,12 +502,20 @@ function roundWin(isGuessed) {
     
     autoFillRemainingLetters();
     
-    setTimeout(() => {
-        roundEnded = false;
-    }, 3100);
+    // SHOW THE NEXT ROUND BUTTON
+    const nextRoundSimpleBtn = document.getElementById('nextRoundSimpleBtn');
+    if (nextRoundSimpleBtn) {
+        nextRoundSimpleBtn.style.display = 'flex';
+    }
 }
 
 function nextRound() {
+    // HIDE THE NEXT ROUND BUTTON
+    const nextRoundSimpleBtn = document.getElementById('nextRoundSimpleBtn');
+    if (nextRoundSimpleBtn) {
+        nextRoundSimpleBtn.style.display = 'none';
+    }
+    
     document.getElementById('resultModal')?.classList.remove('active');
     gameState.currentGuesser = gameState.currentGuesser === 1 ? 2 : 1;
     
@@ -636,11 +644,16 @@ function setupEventListeners() {
     document.getElementById('homeMenuBtn')?.addEventListener('click', () => showSetupModal());
     document.getElementById('newGameBtn')?.addEventListener('click', () => showSetupModal());
     document.getElementById('resetRoundBtn')?.addEventListener('click', () => {
-        if (confirm('End current round and start new round?')) {
-            nextRound();
+        if (confirm('Reset current round?')) {
+            startNewRound();
         }
     });
-    document.getElementById('nextRoundBtn')?.addEventListener('click', () => nextRound());
+    
+    // NEXT ROUND BUTTON LISTENER
+    document.getElementById('nextRoundSimpleBtn')?.addEventListener('click', () => {
+        nextRound();
+    });
+    
     document.getElementById('startGameBtn')?.addEventListener('click', () => {
         if (gameState.gameMode === 'custom') {
             if (gameState.waitingForCustomWord || document.getElementById('customWord').value.trim()) {
